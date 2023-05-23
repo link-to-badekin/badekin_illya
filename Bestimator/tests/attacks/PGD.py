@@ -1,6 +1,7 @@
 from Bestimator.tests.attacks.restriction_by_norm import ConstrainedMethod
 from torch.nn import CosineSimilarity
 import torch
+import os
 
 __all__ = ['PGD']
 

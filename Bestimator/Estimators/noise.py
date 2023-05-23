@@ -1,3 +1,4 @@
+import os
 import torch
 
 def run_estim(model, dataloader, atack, param, device = None):

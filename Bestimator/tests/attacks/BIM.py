@@ -1,3 +1,4 @@
+
 from Bestimator.tests.attacks.restriction_by_norm import ConstrainedMethod
 #from RobFR.attack.base import ConstrainedMethod
 
