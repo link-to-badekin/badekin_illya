@@ -1,8 +1,8 @@
 import torch
 import torch.nn as nn
 from Bestimator.feature_extractor.DiffJPEG.compression import compress_jpeg
-from Bestimator.feature_extractor.decompression import decompress_jpeg
-from Bestimator.feature_extractor.utils import quality_to_factor
+from Bestimator.feature_extractor.DiffJPEG.decompression import decompress_jpeg
+from Bestimator.feature_extractor.DiffJPEG.utils import quality_to_factor
 import random
 class DiffJPEG(nn.Module):
     '''
