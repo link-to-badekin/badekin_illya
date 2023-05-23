@@ -38,7 +38,7 @@ def fgsm_estimator(
     ,output = 'result'
 ):
     """"Обвертка для FGSM"""
-    model, img_shape = get_model(model = model, device = device)
+    model, img_shape = get_model( model, device = device)
     attacker = FGSM(
         model=model,
         goal=goal, 
@@ -59,7 +59,6 @@ def main():
     ,model = args.model
     ,goal = args.goal
     ,eps = args.eps
-    ,iters = args.iters
     ,seed = args.seed
     ,batch_size = args.batch_size
     ,distance = args.distance

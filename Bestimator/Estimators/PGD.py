@@ -39,7 +39,7 @@ def pgd_estimator(
     ,output = 'result'
 ):
     """"Обвертка для PGD"""
-    model, img_shape = get_model(model = model, device = device)
+    model, img_shape = get_model(model, device = device)
     attacker = PGD(
         model=model,
         goal=goal, 
