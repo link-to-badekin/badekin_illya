@@ -20,24 +20,27 @@ parser.add_argument('--log', help='log file', type=str, default='log.txt')
 args = parser.parse_args()
 
 def get_score(goal, log):
+    print("Считаю метрики")
     outputs = []
     avg_score = AverageMeter()
     avg_dist = AverageMeter()
     avg_success = AverageMeter()
     dists = []
     with open(os.path.join('log', log), 'r') as f:
-    for line in f.readlines():
-        adv_img_path, tar_img_path, score, dist, suc = line.strip().split(',')
-        if score == 'score' or float(dist) == 0.0:
-            continue
-        score, dist, suc = float(score), float(dist), int(suc)
-        avg_success.update(suc)
-        avg_score.update(score)
-        avg_dist.update(min(dist, 32))
-        dists.append(dist)
+        for line in f.readlines():
+            adv_img_path, tar_img_path, score, dist, suc = line.strip().split(',')
+            if score == 'score' or float(dist) == 0.0:
+                continue
+            score, dist, suc = float(score), float(dist), int(suc)
+            avg_success.update(suc)
+            avg_score.update(score)
+            avg_dist.update(min(dist, 32))
+            dists.append(dist)
+    print(f"косинусная близость | расстояние между src & adv | ASR")
     print(avg_score.avg, avg_dist.avg, avg_success.avg)
+    print("расстояние")
     dists.sort()
     print(dists[len(dists) // 2])    
 
 if __name__ =='__main__':
-	get_score(args.goal, args.log)
+    get_score(args.goal, args.log)

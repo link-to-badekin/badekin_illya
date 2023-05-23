@@ -19,10 +19,11 @@ parser.add_argument('--distance', help='l2/linf', type=str, default='linf', choi
 parser.add_argument('--anno', help='Результаты', type=str, default='output/annotation.txt')
 parser.add_argument('--log', help='логи', type=str, default='log.txt') 
 
-def get_result(dataset, model, goal, distance, anno, log):
-    model, img_shape = get_model(model)
+def get_result(dataset, model_name, goal, distance, anno, log):
+    model, img_shape = get_model(model_name)
     outputs = []
-    threshold = THRESHOLD_DICT[dataset][model]['cos']
+    threshold = THRESHOLD_DICT[dataset][model_name]['cos']
+    print(f"Запускаю тест, цель {goal} для модели {model_name} на наборе данных {dataset} L = {distance}")
     with open(anno, 'r') as f:
         for line in tqdm(f.readlines()):
             adv_img_path, src_img_path, tar_img_path = line.strip().split(' ')

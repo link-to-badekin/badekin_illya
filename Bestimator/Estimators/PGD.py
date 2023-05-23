@@ -49,10 +49,11 @@ def pgd_estimator(
     )
     datapath = os.path.join( datapath, '{}-{}x{}'.format(dataset, img_shape[0], img_shape[1]))
     print(f"Полный путь к набору данных: {datapath}")
-    loader = LOADER_DICT[dataset](datadir, goal, batch_size, model)
+    loader = LOADER_DICT[dataset](datapath, goal, batch_size, model)
     run_test(loader, attacker, output)
 
 def main():
+    print(f"Запускаю PGD")
     pgd_estimator(
     datapath  = args.datapath 
     ,device = args.device

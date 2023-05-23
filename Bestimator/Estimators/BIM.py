@@ -6,7 +6,7 @@ import argparse
 from Bestimator.feature_extractor.utils import get_model
 from Bestimator.Estimators.run import run_test
 from Bestimator.utils.LOADER_DICT import LOADER_DICT
-from RobFR.tests.attacks.BIM import BIM
+from Bestimator.tests.attacks.BIM import BIM
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--device', help='device id', type=str, default='cuda')
@@ -39,7 +39,7 @@ def bim_estimator(
     ,output = 'result'
 ):
     """"Обвертка для BIM"""
-    model, img_shape = get_model(model = model, device = device)
+    model, img_shape = get_model(model, device = device)
     attacker = BIM(
         model=model,
         goal=goal, 
@@ -49,10 +49,11 @@ def bim_estimator(
     )
     datapath = os.path.join( datapath, '{}-{}x{}'.format(dataset, img_shape[0], img_shape[1]))
     print(f"Полный путь к набору данных: {datapath}")
-    loader = LOADER_DICT[dataset](datadir, goal, batch_size, model)
+    loader = LOADER_DICT[dataset](datapath, goal, batch_size, model)
     run_test(loader, attacker, output)
 
 def main():
+    print("Запускаю BIM")
     bim_estimator(
     datapath  = args.datapath 
     ,device = args.device

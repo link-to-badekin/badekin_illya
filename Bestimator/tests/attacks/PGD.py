@@ -10,7 +10,7 @@ class PGD(ConstrainedMethod):
         self.iters = iters
     def batch_attack(self, xs, ys_feat, **kwargs):
         xs_adv = xs.clone().detach().requires_grad_(True)
-        xs_adv.data = delta.detach() * 2 * epsilon - epsilon
+        xs_adv.data = xs_adv.detach() * 2 * epsilon - epsilon
         xs_adv.data = torch.min(torch.max(delta.detach(), -xs), 1-xs)
         for _ in range(self.iters):
             features = self.model.forward(xs_adv)
@@ -19,6 +19,5 @@ class PGD(ConstrainedMethod):
             grad = xs_adv.grad
             self.model.zero_grad()
             xs_adv = self.step(xs_adv, 1.5 * self.eps / self.iters, grad, xs, self.eps)
-            xs_adv = xs_adv + self.
             xs_adv = xs_adv.detach().requires_grad_(True)
         return xs_adv
